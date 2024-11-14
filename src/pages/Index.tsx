@@ -151,6 +151,59 @@ const Index = () => {
         </div>
       </section>
 
+      {/* GIF Section */}
+      <section className="py-12 px-4 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl"
+        >
+          <img 
+            src="https://media.giphy.com/media/l4Ki4biBSwhjyrS48/giphy.gif" 
+            alt="Romantic hearts"
+            className="w-full h-auto"
+          />
+        </motion.div>
+      </section>
+
+      {/* Romantic Message Section */}
+      <motion.section 
+        className="py-20 px-4 md:px-8 bg-white/80"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <div className="max-w-3xl mx-auto text-center space-y-8">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            className="p-8 rounded-2xl bg-gradient-to-r from-rose-100/50 to-rose-50/50 shadow-lg"
+          >
+            <h2 className="text-3xl md:text-4xl font-light text-rose-600 mb-6">Our Love Story</h2>
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+              "Every moment spent with you is like a beautiful dream come true. You make my heart smile in ways no one else can. Here's to our journey together, filled with love, laughter, and countless precious memories."
+            </p>
+            <div className="mt-6">
+              <motion.div
+                className="inline-block"
+                animate={{
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                ❤️
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* YouTube Videos Section */}
       <section className="py-20 px-4 md:px-8 bg-white/80">
         <motion.h2 
