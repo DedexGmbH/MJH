@@ -1,24 +1,10 @@
-import { motion, useScroll } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { PhotoCard } from '../components/PhotoCard';
-import { VideoPlayer } from '../components/VideoPlayer';
 import { YouTubeEmbed } from '../components/YouTubeEmbed';
+import { HeroSection } from '../components/HeroSection';
+import { ContactButton } from '../components/ContactButton';
 
 const Index = () => {
-  const { scrollY } = useScroll();
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = scrollY.onChange(y => {
-      if (y > 10) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
-
   const photos = [
     {
       src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
@@ -84,51 +70,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
-      {/* Hero Section with Names Animation */}
-      <motion.section 
-        className="h-screen flex items-center justify-center relative overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-        </div>
-        
-        <motion.div 
-          className="relative text-center text-white space-y-12"
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -50 }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.h1 
-            className="text-7xl md:text-9xl font-light"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ 
-              type: "spring",
-              stiffness: 100,
-              delay: 0.5 
-            }}
-          >
-            <motion.span
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="block mb-4"
-            >
-              Hazar
-            </motion.span>
-            <motion.span
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.5, duration: 0.8 }}
-              className="block"
-            >
-              Majura
-            </motion.span>
-          </motion.h1>
-        </motion.div>
-      </motion.section>
+      <HeroSection />
 
       {/* Photo Gallery with Swing Animation */}
       <section className="py-20 px-4 md:px-8">
@@ -240,6 +182,17 @@ const Index = () => {
             />
           </motion.div>
         </div>
+      </section>
+
+      {/* Contact Button Section */}
+      <section className="py-12 px-4 md:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <ContactButton />
+        </motion.div>
       </section>
     </div>
   );
