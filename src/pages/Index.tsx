@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { PhotoCard } from '../components/PhotoCard';
 import { VideoPlayer } from '../components/VideoPlayer';
+import { YouTubeEmbed } from '../components/YouTubeEmbed';
 
 const Index = () => {
-  // Sample data - replace with your actual photos and videos
   const photos = [
     {
       src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
@@ -27,7 +27,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
-      {/* Hero Section */}
+      {/* Hero Section with Names Animation */}
       <motion.section 
         className="h-screen flex items-center justify-center relative overflow-hidden"
         initial={{ opacity: 0 }}
@@ -38,27 +38,38 @@ const Index = () => {
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
         </div>
         
-        <div className="relative text-center text-white space-y-4">
+        <div className="relative text-center text-white space-y-12">
           <motion.h1 
-            className="text-5xl md:text-7xl font-light"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            className="text-7xl md:text-9xl font-light"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ 
+              type: "spring",
+              stiffness: 100,
+              delay: 0.5 
+            }}
           >
-            Our Story
+            <motion.span
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="block mb-4"
+            >
+              Hazar
+            </motion.span>
+            <motion.span
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.5, duration: 0.8 }}
+              className="block"
+            >
+              Majura
+            </motion.span>
           </motion.h1>
-          <motion.p 
-            className="text-xl md:text-2xl font-light"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            A collection of our precious moments
-          </motion.p>
         </div>
       </motion.section>
 
-      {/* Photo Gallery */}
+      {/* Photo Gallery with Swing Animation */}
       <section className="py-20 px-4 md:px-8">
         <motion.h2 
           className="text-3xl md:text-4xl text-center mb-12 font-light"
@@ -66,13 +77,63 @@ const Index = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Captured Moments
+          Our Moments
         </motion.h2>
         
         <div className="photo-grid">
           {photos.map((photo, index) => (
-            <PhotoCard key={index} {...photo} />
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                delay: index * 0.2
+              }}
+            >
+              <PhotoCard {...photo} />
+            </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* YouTube Videos Section */}
+      <section className="py-20 px-4 md:px-8 bg-white/80">
+        <motion.h2 
+          className="text-3xl md:text-4xl text-center mb-12 font-light"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Our Songs
+        </motion.h2>
+        
+        <div className="max-w-4xl mx-auto space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <YouTubeEmbed 
+              videoId="REPLACE_WITH_YOUR_YOUTUBE_VIDEO_ID_1" 
+              title="Our Song 1" 
+            />
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
+            <YouTubeEmbed 
+              videoId="REPLACE_WITH_YOUR_YOUTUBE_VIDEO_ID_2" 
+              title="Our Song 2" 
+            />
+          </motion.div>
         </div>
       </section>
 
