@@ -1,26 +1,83 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { PhotoCard } from '../components/PhotoCard';
 import { VideoPlayer } from '../components/VideoPlayer';
 import { YouTubeEmbed } from '../components/YouTubeEmbed';
 
 const Index = () => {
+  const { scrollY } = useScroll();
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = scrollY.onChange(y => {
+      if (y > 10) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
+
   const photos = [
     {
       src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
       alt: "Together",
-      date: "June 15, 2023",
-      caption: "Our first date"
+      date: "First Date",
+      caption: "Where it all began"
     },
     {
       src: "https://images.unsplash.com/photo-1615729947596-a598e5de0ab3",
       alt: "Memories",
-      date: "July 4, 2023",
-      caption: "Summer picnic"
+      date: "Special Day",
+      caption: "Our adventure"
     },
     {
       src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
       alt: "Love",
-      date: "August 20, 2023",
+      date: "Summer",
+      caption: "Beach day"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8",
+      alt: "Together",
+      date: "Autumn",
+      caption: "Coffee date"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a",
+      alt: "Adventure",
+      date: "Winter",
+      caption: "First snow"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2",
+      alt: "Love",
+      date: "Spring",
+      caption: "Park walk"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1503516459261-40c66117780a",
+      alt: "Together",
+      date: "Summer",
+      caption: "Sunset view"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f",
+      alt: "Love",
+      date: "Winter",
+      caption: "Holiday season"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1518599807935-37015b9cefcb",
+      alt: "Adventure",
+      date: "Spring",
+      caption: "Garden visit"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1516589091380-5d8e21be1ce9",
+      alt: "Together",
+      date: "Summer",
       caption: "Beach sunset"
     },
   ];
@@ -38,7 +95,11 @@ const Index = () => {
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
         </div>
         
-        <div className="relative text-center text-white space-y-12">
+        <motion.div 
+          className="relative text-center text-white space-y-12"
+          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -50 }}
+          transition={{ duration: 0.5 }}
+        >
           <motion.h1 
             className="text-7xl md:text-9xl font-light"
             initial={{ scale: 0, opacity: 0 }}
@@ -66,31 +127,22 @@ const Index = () => {
               Majura
             </motion.span>
           </motion.h1>
-        </div>
+        </motion.div>
       </motion.section>
 
       {/* Photo Gallery with Swing Animation */}
       <section className="py-20 px-4 md:px-8">
-        <motion.h2 
-          className="text-3xl md:text-4xl text-center mb-12 font-light"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Our Moments
-        </motion.h2>
-        
-        <div className="photo-grid">
+        <div className="grid grid-cols-2 gap-8 max-w-6xl mx-auto">
           {photos.map((photo, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{
                 type: "spring",
-                stiffness: 100,
-                delay: index * 0.2
+                stiffness: 50,
+                delay: index * 0.1
               }}
             >
               <PhotoCard {...photo} />
@@ -134,25 +186,6 @@ const Index = () => {
               title="Our Song 2" 
             />
           </motion.div>
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section className="py-20 px-4 md:px-8 bg-white/80">
-        <motion.h2 
-          className="text-3xl md:text-4xl text-center mb-12 font-light"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Our Videos
-        </motion.h2>
-        
-        <div className="max-w-4xl mx-auto space-y-8">
-          <VideoPlayer 
-            src="/path-to-your-video.mp4" 
-            poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-          />
         </div>
       </section>
     </div>

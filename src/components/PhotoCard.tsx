@@ -20,20 +20,27 @@ export const PhotoCard = ({ src, alt, date, caption }: PhotoCardProps) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <img src={src} alt={alt} className="transition-transform duration-300 group-hover:scale-105" />
-      
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex flex-col justify-end text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-      >
-        {caption && (
-          <p className="text-lg font-light mb-1">{caption}</p>
-        )}
-        {date && (
-          <p className="text-sm text-gray-200">{date}</p>
-        )}
-      </motion.div>
+      <div className="relative w-full h-full overflow-hidden rounded-lg">
+        <img 
+          src={src} 
+          alt={alt} 
+          className={`transition-all duration-500 ${isHovered ? 'scale-105 brightness-100' : 'brightness-50'}`}
+        />
+        
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex flex-col justify-end text-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {caption && (
+            <p className="text-lg font-light mb-1">{caption}</p>
+          )}
+          {date && (
+            <p className="text-sm text-gray-200">{date}</p>
+          )}
+        </motion.div>
+      </div>
     </motion.div>
   );
 };

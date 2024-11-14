@@ -36,16 +36,12 @@
   }
 
   .photo-card {
-    @apply relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl;
+    @apply relative overflow-hidden rounded-lg shadow-lg transition-all duration-300;
     aspect-ratio: 1;
   }
 
   .photo-card img {
-    @apply h-full w-full object-cover transition-transform duration-300;
-  }
-
-  .photo-card:hover img {
-    @apply scale-105;
+    @apply h-full w-full object-cover;
   }
 
   .memory-card {
